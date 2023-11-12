@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "231256512053",
+    "project_id": "testing-rifan",
+    "storage_bucket": "testing-rifan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231256512053:android:06ac810bec822e9f67037c",
+        "android_client_info": {
+          "package_name": "com.github.vzrifan.testing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0LwUdPzTKa3pS54OvYOI9GDEcDNJGQxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
