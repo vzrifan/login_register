@@ -21,4 +21,26 @@ class CustomScaffold {
             options: DefaultFirebaseOptions.currentPlatform),
         builder: build);
   }
+
+  static TextField makeTextField(TextEditingController controller,
+      String hintText, TextInputType textInputType,
+      {bool enableSuggestions = true, bool autoCorrect = true}) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(hintText: hintText),
+      keyboardType: textInputType,
+    );
+  }
+
+  static ElevatedButton makeElevatedButton(String title,
+      {Future<void> Function()? asyncFunction}) {
+    return ElevatedButton(
+      onPressed: () async {
+        if (asyncFunction != null) {
+          await asyncFunction();
+        }
+      },
+      child: Text(title),
+    );
+  }
 }

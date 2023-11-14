@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_udid/flutter_udid.dart';
+import 'package:testing/helper/auth_handler.dart';
 import 'package:testing/helper/custom_scaffold.dart';
-import 'package:testing/main.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -45,36 +44,13 @@ class _LoginViewState extends State<LoginView> {
             case ConnectionState.done:
               return Column(
                 children: [
-                  TextField(
-                    controller: _emailController,
-                    decoration:
-                        InputDecoration(hintText: "Enter your email here"),
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      final email = _emailController.text;
-                      final password = _id;
-                      try {
-                        final userCredential = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: email, password: password);
-                        print(userCredential);
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomePage()));
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          print("User not found");
-                        } else if (e.code == 'wrong-password') {
-                          print("Wrong password");
-                        }
-                      }
-                    },
-                    child: const Text("Login"),
+                  CustomScaffold.makeTextField(_emailController,
+                      "Enter your email here", TextInputType.emailAddress,
+                      enableSuggestions: false, autoCorrect: false),
+                  CustomScaffold.makeElevatedButton(
+                    "Login",
+                    asyncFunction: () => AuthHandler.handleLogin(
+                        _emailController.text, _id, context),
                   ),
                 ],
               );
