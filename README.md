@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # testing
 
 A new Flutter project.
@@ -19,3 +20,7 @@ samples, guidance on mobile development, and a full API reference.
 # testing_flutter
 Testing flutter application
 >>>>>>> ae2935e (Initial commit)
+=======
+# testing_flutter
+Testing flutter application
+>>>>>>> ae2935efabef09abd63f3b10d05148d1d81d80cd

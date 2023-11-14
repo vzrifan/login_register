@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Miscellaneous
 *.class
 *.log
@@ -44,6 +45,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 =======
+=======
+>>>>>>> ae2935efabef09abd63f3b10d05148d1d81d80cd
 # See https://www.dartlang.org/guides/libraries/private-files
 
 # Files and directories created by pub
@@ -71,4 +74,7 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+<<<<<<< HEAD
 >>>>>>> ae2935e (Initial commit)
+=======
+>>>>>>> ae2935efabef09abd63f3b10d05148d1d81d80cd
