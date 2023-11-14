@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:testing/firebase_options.dart';
+import 'package:testing/helper/custom_scaffold.dart';
+import 'package:testing/views/login_view.dart';
 import 'package:testing/views/register_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
     title: "Flutter Demo",
-    theme: ThemeData(primarySwatch: Colors.blue),
+    theme: ThemeData(primarySwatch: Colors.lightBlue), //TODO Color theme
     home: const RegisterView(),
   ));
 }
@@ -19,28 +19,33 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Login"),
-      ),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, snapshot) {
+        appBar: CustomScaffold.makeAppBar("Home Page"),
+        body: CustomScaffold.makeFutureBuilder((context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-            final user = FirebaseAuth.instance.currentUser;
-            if(user?.emailVerified?? false){
-              print("You are a verified user");
-            }else{
-              print("You need to verify your email firest");
-            }
-              return Text("Done");
+              final user = FirebaseAuth.instance.currentUser;
+              if (user?.emailVerified ?? false) {
+                print("You are a verified user");
+              } else {
+                print("You need to verify your email first");
+              }
+              return Column(
+                children: [
+                  Text("Hello ${user?.displayName}\n\nYour full info: $user"),
+                  ElevatedButton(
+                      onPressed: () {
+                        FirebaseAuth.instance.signOut();
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginView()));
+                      },
+                      child: Text("Logout"))
+                ],
+              );
             default:
               return const Text("Loading...");
           }
-        },
-      ),
-    );
+        }));
   }
 }
