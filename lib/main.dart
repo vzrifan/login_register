@@ -31,7 +31,12 @@ class HomePage extends StatelessWidget {
               }
               return Column(
                 children: [
-                  Text("Hello ${user?.displayName}\n\nYour full info: $user"),
+                  Container(
+                      margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                      child: Text(
+                        "Hello ${user?.displayName}\n\nYour full info: $user",
+                        style: TextStyle(color: CustomScaffold.color4),
+                      )),
                   CustomScaffold.makeElevatedButton("Logout",
                       asyncFunction: () => AuthHandler.handleLogout(context)),
                 ],

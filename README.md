@@ -1,26 +1,29 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-# testing
+# Register and login
 
-A new Flutter project.
+A simple register and login using unique device id using firebase as database.
 
-## Getting Started
+## Table of Contents
 
-This project is a starting point for a Flutter application.
+- [Usage](#usage)
+- [Next](#next)
+- [License](#license)
 
-A few resources to get you started if this is your first Flutter project:
+## Usage
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+This application is still in testing. here some step to run it:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-=======
-# testing_flutter
-Testing flutter application
->>>>>>> ae2935e (Initial commit)
-=======
-# testing_flutter
-Testing flutter application
->>>>>>> ae2935efabef09abd63f3b10d05148d1d81d80cd
+1. Clone the repository
+2. cd
+3. flutter run
+
+## Next
+
+Add cryptography to the data and more feature
+
+## License
+
+This project is licensed under the [Flutter License](LICENSE-FLUTTER).
+
+---
+
+[![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](LICENSE-FLUTTER)

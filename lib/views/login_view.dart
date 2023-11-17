@@ -45,7 +45,7 @@ class _LoginViewState extends State<LoginView> {
               return Column(
                 children: [
                   CustomScaffold.makeTextField(_emailController,
-                      "Enter your email here", TextInputType.emailAddress,
+                      "Enter your email here", TextInputType.emailAddress, Icon(Icons.mail),
                       enableSuggestions: false, autoCorrect: false),
                   CustomScaffold.makeElevatedButton(
                     "Login",

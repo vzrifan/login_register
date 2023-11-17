@@ -81,11 +81,22 @@ class _RegisterViewState extends State<RegisterView> {
           case ConnectionState.done:
             return Column(
               children: [
-                Text(_id),
-                CustomScaffold.makeTextField(_emailController,
-                    "Enter your email here", TextInputType.emailAddress),
-                CustomScaffold.makeTextField(_usernameController,
-                    "Enter your username here", TextInputType.name),
+                Container(
+                    margin: EdgeInsets.all(20),
+                    child: Text(
+                      "Unique device id: ${_id}",
+                      style: TextStyle(color: CustomScaffold.color4),
+                    )),
+                CustomScaffold.makeTextField(
+                    _emailController,
+                    "Enter your email here",
+                    TextInputType.emailAddress,
+                    Icon(Icons.mail)),
+                CustomScaffold.makeTextField(
+                    _usernameController,
+                    "Enter your username here",
+                    TextInputType.name,
+                    Icon(Icons.person)),
                 CustomScaffold.makeElevatedButton("Register",
                     asyncFunction: () => AuthHandler.handleRegister(
                         _emailController.text,
