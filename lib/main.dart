@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               final user = FirebaseAuth.instance.currentUser;
-              if (user?.emailVerified ?? false) {
+              if (user!.emailVerified) {
                 print("You are a verified user");
               } else {
                 print("You need to verify your email first");
@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
                   Container(
                       margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
                       child: Text(
-                        "Hello ${user?.displayName}\n\nYour full info: $user",
+                        "Hello ${user.displayName}\n\n${user}",
                         style: TextStyle(color: CustomScaffold.color4),
                       )),
                   CustomScaffold.makeElevatedButton("Logout",

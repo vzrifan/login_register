@@ -84,7 +84,7 @@ class _RegisterViewState extends State<RegisterView> {
                 Container(
                     margin: EdgeInsets.all(20),
                     child: Text(
-                      "Unique device id: ${_id}",
+                      "Unique device id: $_id",
                       style: TextStyle(color: CustomScaffold.color4),
                     )),
                 CustomScaffold.makeTextField(
