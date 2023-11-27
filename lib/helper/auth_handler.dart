@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:testing/helper/auth_exception.dart';
+import 'package:testing/helper/custom_validator.dart';
 import 'package:testing/helper/rsa.dart';
 import 'package:testing/main.dart';
 import 'package:testing/views/login_view.dart';
@@ -43,17 +44,21 @@ class AuthHandler {
 
     return publicKey;
   }
-  
+
   static Future<List> getPrivateKey(List publicKey) async {
     List privateKey = [];
     var subCollectionName = publicKey.join(",");
 
     DocumentSnapshot<Map<String, dynamic>> usersSnapshot =
-        await FirebaseFirestore.instance.collection('devs').doc(subCollectionName).get();
+        await FirebaseFirestore.instance
+            .collection('devs')
+            .doc(subCollectionName)
+            .get();
 
-    if(usersSnapshot.exists){
-      Map<String, dynamic> userData = usersSnapshot.data() as Map<String, dynamic>;
-      if(userData.containsKey('privateKey')){
+    if (usersSnapshot.exists) {
+      Map<String, dynamic> userData =
+          usersSnapshot.data() as Map<String, dynamic>;
+      if (userData.containsKey('privateKey')) {
         privateKey.add(userData['privateKey']);
       }
     }
@@ -62,15 +67,13 @@ class AuthHandler {
   }
 
   static Future<void> handleRegister(String email, String username,
-      String password, BuildContext context) async {
+      String password, String phone, BuildContext context) async {
     List<String> storedDeviceId = await getDeviceIdFromFirestore();
     print(storedDeviceId);
+    HomePage homePageInstance = HomePage();
 
     if (storedDeviceId.contains(password)) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+      CustomValidator.navigate(context, homePageInstance);
     } else {
       try {
         var allKey = Rsa.generateKeypair();
@@ -91,6 +94,7 @@ class AuthHandler {
           'email': email,
           'deviceId': password,
           'username': username,
+          'phone': phone,
           'publicKey': publicKey
         });
         await FirebaseFirestore.instance
@@ -98,12 +102,9 @@ class AuthHandler {
             .doc(publicKey.join(","))
             .set({'privateKey': privateKey});
         print(userCredential);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
+        CustomValidator.navigate(context, homePageInstance);
       } on FirebaseAuthException catch (e) {
-        AuthExecption.handleRegister(e);
+        AuthExecption.handleRegister(e, context);
       }
     }
   }
@@ -115,25 +116,25 @@ class AuthHandler {
       var privateKey = (await getPrivateKey(publicKey))[0];
       print("Public Key: $publicKey");
       print("Private Key: $privateKey");
-      var encryptedPassword = await Rsa.encrypt(publicKey, password);
-      var decryptedPassword = await Rsa.decrypt(privateKey, encryptedPassword);
+      var encryptedPassword = Rsa.encrypt(publicKey, password);
+      var decryptedPassword = Rsa.decrypt(privateKey, encryptedPassword);
       final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(
               email: email, password: encryptedPassword.join(","));
       print(userCredential);
       print("DECRYPTED PASSWORD:");
       print(decryptedPassword);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
+      HomePage homePageInstance = HomePage();
+      CustomValidator.navigate(context, homePageInstance);
     } on FirebaseAuthException catch (e) {
-      AuthExecption.handleLogin(e);
+      AuthExecption.handleLogin(e, context);
     }
   }
 
   static Future<void> handleLogout(BuildContext context) async {
     FirebaseAuth.instance.signOut();
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => LoginView()));
+    LoginView loginPageInstance = LoginView();
+    CustomValidator.navigate(context, loginPageInstance);
   }
 
   static bool isLoggedIn() {

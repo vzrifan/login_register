@@ -1,7 +1,7 @@
 import 'dart:math';
 
 class Rsa {
-  static isPrime(int num) {
+  static bool isPrime(int num) {
     if (num < 2) {
       return false;
     }
@@ -13,7 +13,7 @@ class Rsa {
     return true;
   }
 
-  static generatePrime() {
+  static int generatePrime() {
     var primes = [];
     var random = Random();
 
@@ -26,7 +26,7 @@ class Rsa {
     return primes[random.nextInt(primes.length)];
   }
 
-  static gcd(int a, int b) {
+  static int gcd(int a, int b) {
     while (b != 0) {
       var temp = a;
       a = b;
@@ -35,7 +35,7 @@ class Rsa {
     return a;
   }
 
-  static modInverse(int a, int m) {
+  static int modInverse(int a, int m) {
     var m0 = m;
     var x0 = 0;
     var x1 = 1;
@@ -56,7 +56,7 @@ class Rsa {
     return x1;
   }
 
-  static powMod(int base, int exponent, int modulus) {
+  static int powMod(int base, int exponent, int modulus) {
     int result = 1;
     base = base % modulus;
     while (exponent > 0) {
@@ -69,7 +69,7 @@ class Rsa {
     return result;
   }
 
-  static generateKeypair() {
+  static List generateKeypair() {
     var p = generatePrime();
     var q = generatePrime();
     var random = Random();
@@ -97,7 +97,7 @@ class Rsa {
     return allKey;
   }
 
-  static encrypt(List publicKey, String plaintext) {
+  static List encrypt(List publicKey, String plaintext) {
     var n = publicKey[0];
     var e = publicKey[1];
 
@@ -112,7 +112,7 @@ class Rsa {
     return encryptedMsg;
   }
 
-  static decrypt(List privateKey, List ciphertext) {
+  static String decrypt(List privateKey, List ciphertext) {
     var n = privateKey[0];
     var d = privateKey[1];
 

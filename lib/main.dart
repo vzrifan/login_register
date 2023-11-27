@@ -8,7 +8,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
     title: "Flutter Demo",
-    theme: ThemeData(primarySwatch: Colors.lightBlue), //TODO Color theme
+    theme: ThemeData(primarySwatch: Colors.lightBlue),
     home: const RegisterView(),
   ));
 }
@@ -34,10 +34,10 @@ class HomePage extends StatelessWidget {
                   Container(
                       margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
                       child: Text(
-                        "Hello ${user.displayName}\n\n${user}",
+                        "Hello ${user.displayName}\n\n$user",
                         style: TextStyle(color: CustomScaffold.color4),
                       )),
-                  CustomScaffold.makeElevatedButton("Logout",
+                  CustomScaffold.makeElevatedButton("Logout", context,
                       asyncFunction: () => AuthHandler.handleLogout(context)),
                 ],
               );

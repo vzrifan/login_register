@@ -13,6 +13,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   String _id = '';
   late final TextEditingController _emailController;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -42,17 +43,27 @@ class _LoginViewState extends State<LoginView> {
         body: CustomScaffold.makeFutureBuilder((context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              return Column(
-                children: [
-                  CustomScaffold.makeTextField(_emailController,
-                      "Enter your email here", TextInputType.emailAddress, Icon(Icons.mail),
-                      enableSuggestions: false, autoCorrect: false),
-                  CustomScaffold.makeElevatedButton(
-                    "Login",
-                    asyncFunction: () => AuthHandler.handleLogin(
-                        _emailController.text, _id, context),
-                  ),
-                ],
+              return Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    CustomScaffold.makeTextField(
+                        _emailController,
+                        "Enter your email here",
+                        TextInputType.emailAddress,
+                        Icon(Icons.mail),
+                        _formKey,
+                        enableSuggestions: false,
+                        autoCorrect: false),
+                    CustomScaffold.makeElevatedButton(
+                      "Login",
+                      context,
+                      formKey: _formKey,
+                      asyncFunction: () => AuthHandler.handleLogin(
+                          _emailController.text, _id, context),
+                    ),
+                  ],
+                ),
               );
             default:
               return const Text("Loading...");
